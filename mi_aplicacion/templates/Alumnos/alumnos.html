@@ -12,7 +12,10 @@
       <tr class="w3-dark-grey">
         <th>Acciones</th>
         <th>Nombre</th>
-        <th>Siglas</th>
+        <th>Escuela</th>
+        <th>Sexo</th>
+        <th>Maestro Asignado</th>
+        <th>Fecha de Nacimiento</th>
       </tr>
     </thead>
     {% for alumno in alumnos %}
@@ -23,6 +26,9 @@
       </td>
       <td>{{ alumno.nombre }}</td>
       <td>{{ alumno.escuela.siglas }}</td>
+      <td>{{ alumno.get_sexo_display }}</td>
+      <td>{{ alumno.maestro }}</td>
+      <td>{{ alumno.fecha_nacimiento }}</td>
     </tr>
     {%endfor%}
   </table>

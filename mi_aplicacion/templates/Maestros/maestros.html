@@ -25,7 +25,7 @@
       </td>
       <td>{{ maestro.nombre }}</td>
       <td>{{ maestro.escuela.siglas }}</td>
-      <td>{{ maestro.sexo }}</td>
+      <td>{{ maestro.get_sexo_display }}</td>
       <td>{{ maestro.fecha_nacimiento }}</td>
     </tr>
     {%endfor%}
