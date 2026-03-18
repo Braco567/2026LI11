@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block principal %}
+<div class="{% if accion == 'Eliminar'%}bg-danger{%elif accion == 'Editar' %}bg-warning{% else %}bg-success{% endif %} p-3">
+
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+{% crispy form %}
+        
+</form>
+</div>
+
+{% endblock %}

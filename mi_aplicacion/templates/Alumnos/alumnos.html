@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block encabezado %}
+  <a href="{% url 'alumnos_alta' %}"><img src="{%static 'images/icons8-más-32.png'%}" alt=""></a>
+{% endblock %}
+
+{% block principal %} 
+
+  <table class="w3-table-all w3-hoverable">
+    <thead>
+      <tr class="w3-dark-grey">
+        <th>Acciones</th>
+        <th>Nombre</th>
+        <th>Siglas</th>
+      </tr>
+    </thead>
+    {% for alumno in alumnos %}
+    <tr>
+      <td>
+        <a href="{% url 'alumnos_eliminar' alumno.id %}"><img src="{%static 'images/icons8-basura-llena-32.png'%}" alt=""></a>
+        <a href="{% url 'alumnos_editar' alumno.id %}"><img src="{%static 'images/icons8-crear-nuevo-32.png'%}" alt=""></a>
+      </td>
+      <td>{{ alumno.nombre }}</td>
+      <td>{{ alumno.escuela.siglas }}</td>
+    </tr>
+    {%endfor%}
+  </table>
+{% endblock %}
