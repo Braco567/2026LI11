@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.views import View
 from mi_aplicacion.models import Alumno, Escuela, Maestro
 from mi_aplicacion.form import EscuelaForm, MaestroForm, AlumnoForm
@@ -78,13 +79,31 @@ class EscuelaEliminar(View):
     
 class Maestros(View):
     def get(self, request):
+        if not request.user.has_perm('mi_aplicacion.view_maestro'):
+            messages.error(request, "No tienes permiso para ver los maestros.")
+            return redirect("home")
+
+        nombre = request.GET.get("nombre", "")
+        escuela_id = request.GET.get("escuela", "")
         maestros = Maestro.objects.all()
-        cdx={
-        "titulo":"Mestros",
-        "subtitulo":"Lista de maestros",
-        "maestros":maestros
+
+        if nombre:
+            maestros = maestros.filter(nombre__icontains=nombre)
+
+        if escuela_id:
+            maestros = maestros.filter(escuela_id=escuela_id)
+
+        cdx = {
+            "titulo": "Maestros",
+            "subtitulo": "Lista de maestros",
+            "maestros": maestros,
+            "escuelas": Escuela.objects.all()
         }
-        return render(request , "maestros/maestros.html", cdx)
+        return render(request, "maestros/maestros.html", cdx)
+
+    def post(self, request):
+        return self.get(request)
+
 
 class MaestroAlta(View):
     def get(self, request):

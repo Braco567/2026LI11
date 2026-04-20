@@ -2,7 +2,26 @@
 {% load static %}
 
 {% block encabezado %}
+{% if perms.mi_aplicacion.add_maestro %}
   <a href="{% url 'maestros_alta' %}"><img src="{%static 'images/icons8-más-32.png'%}" alt=""></a>
+{% endif %}
+
+{% endblock %}
+
+{% block filtros %}
+  <form method="get" action="{% url 'maestros' %}">
+    {% csrf_token %}
+    <input type="text" name="nombre" placeholder="Nombre" value="{{ request.GET.nombre }}">
+    <select name="escuela">
+      <option value="">Todas las escuelas</option>
+      {% for escuela in escuelas %}
+        <option value="{{ escuela.id }}" 
+        {% if request.GET.escuela == escuela.id|stringformat:"s" %}selected{% endif %}
+        >{{ escuela.nombre }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Filtrar</button>
+  </form>
 {% endblock %}
 
 {% block principal %} 
