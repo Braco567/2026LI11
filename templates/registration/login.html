@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block principal %}
+<div class="w3-container w3-margin-top">
+  <div class="w3-card-4 w3-light-grey" style="max-width: 500px; margin: 0 auto;">
+    <div class="w3-container w3-teal">
+      <h2>Iniciar Sesión</h2>
+    </div>
+    <form method="post" class="w3-container w3-padding-large">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+          {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+      
+      <div class="w3-margin-bottom">
+        <label for="id_username" class="form-label"><b>Usuario</b></label>
+        {{ form.username }}
+        {% if form.username.errors %}
+          <div class="alert alert-danger alert-sm">
+            {% for error in form.username.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      
+      <div class="w3-margin-bottom">
+        <label for="id_password" class="form-label"><b>Contraseña</b></label>
+        {{ form.password }}
+        {% if form.password.errors %}
+          <div class="alert alert-danger alert-sm">
+            {% for error in form.password.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      
+      <button type="submit" class="btn btn-primary w3-margin-top">Iniciar Sesión</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

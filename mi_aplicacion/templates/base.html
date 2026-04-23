@@ -34,11 +34,20 @@
     {% endfor %}
   </div>
   <div class="w3-third w3-container">
+    {% if user.is_authenticated %}
     {{ user.username }}
+    <form method="post"  action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-link">Logout</button>
+    </form>
+    {% else %}
+    <a href="/login"><img src="/static/images/icons8-entrar-32.png" alt="Login"></a>
+    {% endif %}
   </div>
 </div>
 
 <div class="w3-container">
+    
     {% block principal %}
     {% endblock %}
 </div>
